@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,7 @@
     <Compile Include="Trello\TrelloAction.cs" />
     <Compile Include="Trello\TrelloActionData.cs" />
     <Compile Include="Trello\TrelloActionDataCard.cs" />
+    <Compile Include="Trello\TrelloBoard.cs" />
     <Compile Include="Trello\TrelloCard.cs" />
     <Compile Include="Trello\TrelloLabel.cs" />
     <Compile Include="Trello\TrelloList.cs" />

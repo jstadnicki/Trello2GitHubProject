@@ -27,25 +27,21 @@
             {
                 var id = gitHubProjectApi.CreateList(restClient, projectId, trelloList.Name);
                 trelloGitHubLists.Add(trelloList.Id, id);
+                Console.WriteLine(trelloList.Name);
             }
 
-            foreach (var trelloAction in trello.Actions
-            .Where(a => a.Data != null)
-            .Where(a => a.Data.Card != null)
-            .Where(a => !string.IsNullOrWhiteSpace(a.Data.Card.ListId)))
+            foreach (var card in trello.Cards)
             {
-                gitHubProjectApi.CreateCard(restClient, trelloGitHubLists[trelloAction.Data.Card.ListId], trelloAction.Data.Card.Name);
+                gitHubProjectApi.CreateCard(restClient, trelloGitHubLists[card.ListId], card.Name);
+                Console.WriteLine(card.Name);
             }
-
-            var listid = gitHubProjectApi.CreateList(restClient, projectId, "list");
-            gitHubProjectApi.CreateCard(restClient, listid, "card name");
 
         }
 
-        private static TrelloCard LoadTrello()
+        private static TrelloBoard LoadTrello()
         {
             var json = System.IO.File.ReadAllText("c:/_temp/itan.json");
-            var card = Newtonsoft.Json.JsonConvert.DeserializeObject<TrelloCard>(json);
+            var card = Newtonsoft.Json.JsonConvert.DeserializeObject<TrelloBoard>(json);
             return card;
         }
 

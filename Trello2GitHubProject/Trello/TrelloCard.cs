@@ -1,12 +1,14 @@
 namespace Trello2GitHubProject.Trello
 {
-    using System.Collections.Generic;
+    using Newtonsoft.Json;
 
     public class TrelloCard
     {
-        public List<TrelloList> Lists { get; set; }
-        public Dictionary<string, string> LabelNames { get; set; }
+        public string Id { get; set; }
 
-        public List<TrelloAction> Actions { get; set; }
+        [JsonProperty("idList")]
+        public string ListId { get; set; }
+
+        public string Name { get; set; }
     }
 }
