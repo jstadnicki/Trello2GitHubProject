@@ -46,5 +46,35 @@
         {
             throw new NotImplementedException();
         }
+
+        public int CreateList(RestClient restClient, int projectId, string listName)
+        {
+            var restRequest = new RestRequest(new Uri($"/projects/{projectId}/columns", UriKind.Relative), Method.POST);
+
+            restRequest.AddHeader("Authorization", $"token {this.Token}");
+            restRequest.AddHeader("Accept", "application/vnd.github.inertia-preview+json");
+
+            var o = new { name = listName };
+            restRequest.AddJsonBody(o);
+            var restResponse = restClient.Execute(restRequest);
+            dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(restResponse.Content);
+
+            return (int)json["id"];
+        }
+
+        public int CreateCard(RestClient restClient, int listid, string cardName)
+        {
+            var restRequest = new RestRequest(new Uri($"/projects/columns/{listid}/cards", UriKind.Relative), Method.POST);
+
+            restRequest.AddHeader("Authorization", $"token {this.Token}");
+            restRequest.AddHeader("Accept", "application/vnd.github.inertia-preview+json");
+
+            var o = new { note = cardName };
+            restRequest.AddJsonBody(o);
+            var restResponse = restClient.Execute(restRequest);
+            dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(restResponse.Content);
+
+            return (int)json["id"];
+        }
     }
 }
